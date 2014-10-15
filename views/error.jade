@@ -1,0 +1,14 @@
+//- (c) JCBR Info
+extends layout
+
+block redef
+	- self.title = "Erreur";
+
+block content
+	h3
+		= self.status + " : " + self.defaultMessage.short
+	if self.error.friendlyMessage
+		p= self.error.friendlyMessage
+	else
+		p= self.defaultMessage.long
+	pre= self.error.stack

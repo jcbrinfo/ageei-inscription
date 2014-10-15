@@ -1,0 +1,52 @@
+//- (c) JCBR Info
+extends ../form
+
+block redef
+	- self.title = "Vos disponibilités pour la session d’hiver";
+
+mixin Period(name, text)
+	td.row-title
+		= text
+	td
+		+CheckBox("availibility", "sunday_" + name, "Dimanche, de " + text)
+	td
+		+CheckBox("availibility", "monday_" + name, "Lundi, de " + text)
+	td
+		+CheckBox("availibility", "tuesday_" + name, "Mardi, de " + text)
+	td
+		+CheckBox("availibility", "wenesday_" + name, "Mercredi, de " + text)
+	td
+		+CheckBox("availibility", "thursday_" + name, "Jeudi, de " + text)
+	td
+		+CheckBox("availibility", "friday_" + name, "Vendredi, de " + text)
+	td
+		+CheckBox("availibility", "saturday_" + name, "Samedi, de " + text)
+
+block formContent
+	.table-wrapper: table.calendar
+		colgroup
+			col.calendar-time
+			col.calendar-weekend
+			- for (i = 0; i < 5; ++i)
+				col
+			col.calendar-weekend
+		thead
+			th= "Plage horaire"
+			th= "Dimanche"
+			th= "Lundi"
+			th= "Mardi"
+			th= "Mercredi"
+			th= "Jeudi"
+			th= "Vendredi"
+			th= "Samedi"
+		tbody
+
+			- var periods = [["9", "9 h à 9 h 30"], ["9_30", "9 h 30 à 11 h 30"], ["11_30", "11 h 30 à 12 h 30"], ["12_30", "12 h 30 à 13 h 30"], ["13_30", "13 h 30 à 15 h"], ["15_30", "15 h 30 à 16 h 30"], ["16_30", "16 h 30 à 18 h"], ["18", "18 h à 20 h"], ["20", "20 h à 21 h"]];
+
+			each p, i in periods
+				if i % 2 === 0
+					tr.row-odd
+						+Period(p[0], p[1])
+				else
+					tr
+						+Period(p[0], p[1])

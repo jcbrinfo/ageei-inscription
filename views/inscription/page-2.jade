@@ -1,0 +1,164 @@
+//- (c) JCBR Info
+extends ../form
+
+block redef
+	- self.title = "Vos intérêts et compétences";
+
+mixin InterestField(name, odd)
+	- name = "interest_" + name
+
+	label(class="form-field-row", class=self.utils.getLabelClass(self, name), class=odd?"row-odd":null)
+		div.form-field-row-label
+			block
+		select(name=name, aria-required="true", required="")
+			+Option(name, "")
+			+Option(name, "-1", "Premier")= "1ᵉʳ"
+			+Option(name, "-2", "Deuxième")= "2ᵉ"
+			+Option(name, "-3", "Troisième")= "3ᵉ"
+			+Option(name, "-4", "Quatrième")= "4ᵉ"
+			+Option(name, "-5", "Cinquième")= "5ᵉ"
+			+Option(name, "-6", "Sixième")= "6ᵉ"
+			+Option(name, "-7", "Septième")= "7ᵉ"
+			+Option(name, "-8", "Huitième")= "8ᵉ"
+			+Option(name, "-9", "Neuvième")= "9ᵉ"
+			+Option(name, "-A", "Dixième")= "10ᵉ"
+			+Option(name, "-B", "Onzième")= "11ᵉ"
+			+Option(name, "-C", "Douzième")= "12ᵉ"
+			+Option(name, "-D", "Treizième")= "13ᵉ"
+			+Option(name, "-E", "Quatorzième")= "14ᵉ"
+			+Option(name, "-F", "Quinzième")= "15ᵉ"
+		+RequiredMessage
+
+mixin SkillField(name, odd)
+	- name = "skills_" + name
+
+	label(class="form-field-row", class=self.utils.getLabelClass(self, name), class=odd?"row-odd":null)
+		div.form-field-row-label
+			block
+		select(name=name, aria-required="true", required="")
+			+Option(name, "")
+			+Option(name, "0")= "1 : J’y connais rien."
+			+Option(name, "1")= "2 : Je connais quelque trucs."
+			+Option(name, "2")= "3 : J’ai suivi un cours là-dessus. / J’ai lu plusieurs ouvrages sur le sujet."
+			+Option(name, "3")= "4 : Je mets en pratique régulièrement."
+			+Option(name, "4")= "5 : Je me considère expert."
+		+RequiredMessage
+
+mixin PracticeField(name, odd)
+	- name = "practice_" + name
+
+	label(class="form-field-row", class=self.utils.getLabelClass(self, name), class=odd?"row-odd":null)
+		div.form-field-row-label
+			block
+		select(name=name, aria-required="true", required="")
+			+Option(name, "")
+			+Option(name, "0")= "1 : Très rare."
+			+Option(name, "1")= "2 : À l’occasion."
+			+Option(name, "2")= "3 : Régulièrement."
+			+Option(name, "3")= "4 : Trop souvent selon certains."
+			+Option(name, "4")= "5 : Ça m’empêche de dormir."
+		+RequiredMessage
+
+block formContent
+	fieldset
+		legend
+			h6
+				= "Intérêts "
+				span.label-required= "(requis)"
+		+InterestField("db", true)
+			|Base de données :
+		+InterestField("gui", false)
+			|Conception d’interfaces graphiques :
+		+InterestField("crypt", true)
+			|Cryptanalyse :
+		+InterestField("embeded", false)
+			|Informatique embarquée :
+		+InterestField("theory", true)
+			|Informatique théorique :
+		+InterestField("ai", false)
+			|Intelligence artificielle :
+		+InterestField("games", true)
+			|Jeux vidéos :
+		+InterestField("maintenance", false)
+			|Maintenance logicielle (amélioration continue) :
+		+InterestField("perf", true)
+			|Optimisation des performances :
+		+InterestField("team", false)
+			|Organisation du travail en équipe :
+		+InterestField("rt", true)
+			|Programmation en temps réel :
+		+InterestField("security", false)
+			|Sécurité :
+		+InterestField("social", true)
+			= "Socialisation"
+			abbr(xml:lang="en-us", lang="en-us", title="in real life")= "IRL"
+			= " :"
+		+InterestField("sports", false)
+			|Sports :
+		+InterestField("web", true)
+			|Web :
+
+	fieldset
+		legend
+			h6
+				= "Compétences techniques "
+				span.label-required= "(requis)"
+		+SkillField("rdb", true)
+			|Bases de données relationnelles :
+		+SkillField("nosql", false)
+			|Bases de données NoSQL :
+		+SkillField("big_data", true)
+			|Big data :
+		+SkillField("gui", false)
+			|Conception d’interfaces graphiques :
+		+SkillField("crypt", true)
+			|Cryptanalyse :
+		+SkillField("embeded", false)
+			|Informatique embarquée :
+		+SkillField("theory", true)
+			|Informatique théorique :
+		+SkillField("ai", false)
+			|Intelligence artificielle :
+		+SkillField("maintenance", true)
+			|Maintenance logicielle (amélioration continue) :
+		+SkillField("team", false)
+			|Organisation du travail en équipe :
+		+SkillField("rt", true)
+			|Programmation en temps réel :
+		+SkillField("security", false)
+			|Sécurité :
+		+SkillField("web", true)
+			|Web :
+
+	fieldset
+		legend
+			h6
+				|Fréquences des activités
+				span.label-required= "(requis)"
+		+PracticeField("games", true)
+			|Jeux vidéos :
+		+PracticeField("sports", false)
+			|Sports :
+
+	fieldset
+		legend
+			h6
+				|Compétences linguistiques
+				span.label-required= "(requis)"
+		p
+			|Voir
+			a(href="http://en.wikipedia.org/wiki/Common_European_Framework_of_Reference_for_Languages#Common_reference_levels")
+				|l’article du Wikipédia anglophone sur les niveaux de référence
+			|.
+		label(class="form-field-row", class=self.utils.getLabelClass(self, "lang_skills_en"), class="row-odd")
+			div.form-field-row-label
+				|Anglais :
+			select(name="lang_skills_en", aria-required="true", required="")
+				+Option("lang_skills_en", "")
+				+Option("lang_skills_en", "beginer")= "Débutant"
+				+Option("lang_skills_en", "elementary")= "Élémentaire"
+				+Option("lang_skills_en", "intermediate")= "Intermédiaire"
+				+Option("lang_skills_en", "intermediate-elevated")= "Intermédiaire élevé"
+				+Option("lang_skills_en", "advanced")= "Avancé"
+				+Option("lang_skills_en", "master")= "Maîtrise"
+			+RequiredMessage

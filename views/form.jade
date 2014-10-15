@@ -1,0 +1,111 @@
+//- (c) JCBR Info
+extends layout
+
+//-**
+//- Une page de formulaire.
+//-
+//- @param String title le titre de la page de formulaire
+//- @param Boolean hasErrors vrai s'il existe des données invalides
+//- @param Integer page l'indice de la page du formulaire
+//- @param Integer numberOfPages le nombre de pages dans le formulaire.
+//- @param Object values la valeur des champs (nom -> valeur)
+//- @param Object invalid l'ensemble des champs dont la valeur est invalide
+//- @param Object utils `require("jade-forms")`.
+
+mixin RequiredMessage
+	p.form-message-required= "Vous devez renseigner ce champ."
+
+//-**
+//- Un champ texte.
+//-
+//- @param String name le nom interne
+//- @param String text le texte de l'étiquette
+//- @param Boolean required si le champ est requis
+//- @param "Jade" block la description
+mixin TextField(name, text, required)
+	label(class=self.utils.getLabelClass(self, name))
+		h6
+			= text
+			if required
+				= " "
+				span.label-required= "(requis)"
+		p
+			block
+		if required
+			input.text-field(type="text", name=name, value=self.values[name], aria-required="true", required="")
+			+RequiredMessage
+		else
+			input.text-field(type="text", name=name, value=self.values[name])
+
+mixin CheckBox(name, value, title)
+	input(type="checkbox", name=name+"[]", value=value, title=title, checked=self.utils.xmlBool(self.values[name][value]))
+
+mixin CheckBoxField(name, value)
+	label
+		+CheckBox(name, value)
+		block
+
+mixin OtherCheckBoxField(name, value, aria_label)
+	- var textName = self.utils.getOtherTextName(name);
+	- var textId = self.utils.getFieldId(textName);
+
+	label
+		input.form-field-other-toggler(type="checkbox", name=name+"[]", value=value, checked=self.utils.xmlBool(self.values[name][value]), data-toggles=textId)
+		block
+	input(type="text", class="text-field form-field-other", id=textId, name=textName, value=self.values[textName], aria-label=aria_label)
+
+mixin OptionButtonField(name, value)
+	label
+		input(type="radio", name=name, value=value, checked=self.utils.xmlBool(self.values[name] === value))
+		block
+
+mixin OtherOptionButtonField(name, value, aria_label)
+	- var textName = self.utils.getOtherTextName(name);
+	- var textId = self.utils.getFieldId(textName);
+
+	label
+		input.form-field-other-toggler(type="radio", name=name, value=value, checked=self.utils.xmlBool(self.values[name] === value), data-toggles=textId)
+		block
+	input(type="text", class="text-field form-field-other", id=textId, name=textName, value=self.values[textName], aria-label=aria_label)
+
+mixin Option(name, value, title)
+	- title = title? title : null
+	option(value=value, selected=self.utils.xmlBool(self.values[name] === value), title=title)
+		block
+
+block scripts
+	script(type="text/javascript", src="script/forms.js")
+
+block bodyTitle
+	if self.numberOfPages > 1
+		= "Étape " + (self.page + 1) + " de " + self.numberOfPages + " : "
+	block formTitle
+		= self.title
+
+block content
+	block beforeForm
+	form(action="", method="POST")
+		input(type="hidden", name=".from-page", value=self.page.toString(16))
+		input(type="hidden", name=".previous-data", value=JSON.stringify(self.values))
+
+		if self.hasErrors
+			.form-alert(role="alert")
+				block alert
+					- // TODO icon
+					h3= "Données invalides"
+					p.
+						Des erreurs ont été détectées dans les données que vous
+						avez entrées ci-dessus. Avant de poursuivre, veuillez
+						aporter les corrections nécessaires.
+
+		block formContent
+
+		.button-bar
+		- // TODO icon
+			if self.page > 0
+				button(type="submit", name=".button", value="back")= "Revenir"
+			button(type="reset")= "Effacer les modifications"
+			if self.page < self.numberOfPages - 1
+				button(type="submit", name=".button", value="")= "Poursuivre"
+			else
+				button(type="submit", name=".button", value="")= "Soumettre"

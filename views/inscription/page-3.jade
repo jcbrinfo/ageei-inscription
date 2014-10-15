@@ -1,0 +1,55 @@
+//- (c) JCBR Info
+extends ../form
+
+block redef
+	- self.title = "Participation aux CS Games";
+
+mixin IdeaField(name, title)
+	label
+		h6= title
+		p
+			block
+		p.textarea-wrapper
+			textarea(name=name)= self.values[name]
+
+block beforeBodyTitle
+	img.logo-contest(src="/images/logo-cs-games.svg", xml:lang="en-us", lang="en-us", alt="CS Games", width="64", height="64")
+
+block formTitle
+	| Participation aux
+	span(xml:lang="en-us", lang="en-us")= "CS Games"
+
+block beforeForm
+	p
+		= "Les "
+		a(xml:lang="en-us", lang="en-us", href="http://csgames.org/")= "CS Games"
+		= " est une compétition entre les étudiants univeristaire en informatique de premier cycle provenant de partout en Amérique du Nord. La prochaine édition se dérouelera du 13 mars au 16 mars 2015. Le thème sera… Proposez-nous vos idées!"
+
+block formContent
+	+CheckBoxField("participation", "csgames")
+		| Je souhaite participer à la prochaine édition.
+
+	fieldset
+		legend
+			h6= "Arrivée à l’hôtel"
+			p
+				| Pour chaque chambre d’hôtel que nous occuperons, nous devons nommer un responsable de chambre. C’est ce responsable qui signe la décharge et prend possession des clés. Idéalement, le reponsable se présentera au début de la plage horaire prévue par les organisateur pour l’arrivée à l’hôtel (habituellement le vendredi, entre 14 h et 17 h).
+		+CheckBoxField("checkin", "csgames")
+			| Je serai en mesure d’arriver tôt le vendredi après-midi pour la réception à l’hôtel.
+
+	+IdeaField("csgames_team_name", "Nom d’équipe")
+		| Vos idée pour avoir des noms d’équipes plus originaux que « UQAM 1 » et « UQAM 2. ».
+
+	+IdeaField("csgames_scream", "Cri de ralliement")
+		| Vos idées pour que les autres universités nous reconnaissent à l’oreille.
+
+	+IdeaField("csgames_costumes", "Costumes")
+		| Vos idées de déguisement et d’acessoires pour que l’on reconaisse nos équipes et que l’on recoive des points pour notre originalité.
+
+	+IdeaField("csgames_video", "Vidéo")
+		| Vos idées pour la vidéo « flashout » de notre déléguation. Ça pourrait nous valoir des points de participation…
+
+	+IdeaField("csgames_gags", "Coups pendables")
+		| Vos idées de farces « <span xml:lang="en-us" lang="en-us" >top secret</span> ». Effectivement, ce genre de trucs peut aussi nous donner des points! Mais, attention : il est désormais interdit d’utiliser les téléphones de l’hôtel. Nous ne voulons pas être les prochains responsables <abbr xml:lang="en-us" lang="en-us" title="Denial of Service">DoS</abbr> sur un système téléphonique d’urgence…
+
+	+IdeaField("csgames_other_ideas", "Autre")

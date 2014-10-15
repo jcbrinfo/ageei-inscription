@@ -1,0 +1,17 @@
+//- (c) JCBR Info
+
+// Page de confirmation.
+extends ../layout
+
+block redef
+	- self.title = "Inscription terminée"
+
+block content
+	p
+		= "Votre inscription a été enregistrée avec succès dans notre base de données. "
+		= "Pour la suite, n’oubliez pas de consulter régulièrement votre boîte de courriel. "
+		= "Merci d’avoir pris le temps de remplir le formulaire d’inscription."
+	p
+		= "À la prochaine. "
+	p
+		a(href="/")= "Retourner à la page d’accueil"

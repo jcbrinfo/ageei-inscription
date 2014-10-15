@@ -1,0 +1,48 @@
+//- (c) JCBR Info
+
+//-**
+//- Modèle principal.
+//-
+//- @param String title le titre de la page
+
+doctype html
+block redef
+html(lang="fr-ca", xml:lang="fr-ca")
+	head
+		meta(charset="utf-8")
+		if self.title.length > 0
+			title= self.title + " < Inscription au groupe des compétiteurs < AGEEI >"
+		else
+			title= "Inscription au groupe des compétiteurs < AGEEI >"
+		meta(name="viewport", content="width=device-width")
+		link(rel="stylesheet", media="all", href="/style/main.css",type="text/css")
+		link(rel="shortcut icon", href="favicon.ico", type="image/x-icon")
+		link(rel="alternate", type="application/rss+xml", title="AGEEI — L’asso. d’info. de l’UQÀM — RSS" href="http://www.ageei.org/rss.xml")
+		block scripts
+	body
+		header
+			nav#nav-network
+				ul.menu
+					li: a(href="http://ageei.org/") Site officiel
+					//- TODO URL
+					li.selected: a(href="http://ageei.org/404") Site des compétiteurs
+					li: a(href="https://github.com/ageei") GitHub
+					li: a(href="http://old.ageei.org/articles") Ancien site
+					li: a(href="http://www.resultats.uqam.ca/etudiant/") Logiciel Résultats
+					li: a(href="http://www.courrier.uqam.ca/") Courriel UQÀM
+			p
+				a(href="http://ageei.org/404")
+					//- TODO URL
+					img(src="images/logo.png", alt="AGEEI, groupe des compétiteurs", width="518", height="76")
+			#content-header-bar
+				#content-header
+					h1 Inscription au groupe des compétiteurs de l’AGEEI
+					p
+						| Veuillez remplir ce formulaire afin de nous permettre de faciliter la gestion des inscriptions et des rencontres à venir.
+		#content-wrapper
+			article
+				block beforeBodyTitle
+				h2
+					block bodyTitle
+						= self.title
+				block content

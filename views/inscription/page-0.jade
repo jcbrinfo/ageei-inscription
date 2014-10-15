@@ -1,0 +1,109 @@
+//- (c) JCBR Info
+extends ../form
+
+block redef
+	- self.title = "Vous";
+
+block formContent
+	+TextField("last_name",		"Nom",			true)
+	+TextField("first_name",	"Prénom",		true)
+	+TextField("alias",			"Pseudonyme",	false).
+		L’alias que vous voulez que l’on utilise pour les vidéos, les accessoires et notre site web des participants.
+	
+	label(class=self.utils.getLabelClass(self, "email"))
+		h6
+			= "Adresse courriel "
+			span.label-required= "(requis)"
+		p.
+			Utilisé pour vous inscrire à nos listes de diffusion. Seuls les autres membres du groupe auront accès à cette addresse.
+		input.text-field(type="email", name="email", value=self.values["email"], aria-required="true", required="")
+		+RequiredMessage
+		p.form-message-format
+			= "Vous devez indiquer une addresse de courrier électronique valide."
+
+	label(class=self.utils.getLabelClass(self, "last_semester"))
+		h6
+			= "Dernière session prévue "
+			span.label-required= "(requis)"
+		p.
+			La session où vous prévoyez suivre vos derniers cours pour le baccalauréat.
+		select(name="last_semester", aria-required="true", required="")
+			+Option("last_semester", "")
+			+Option("last_semester", "2014-09")= "Automne 2014"
+			+Option("last_semester", "2015-01")= "Hiver 2015"
+			+Option("last_semester", "2015-05")= "Été 2015"
+			+Option("last_semester", "2015-09")= "Automne 2015"
+			+Option("last_semester", "2016-01")= "Hiver 2016"
+			+Option("last_semester", "2016-05")= "Été 2016"
+			+Option("last_semester", "2016-09")= "Automne 2016"
+			+Option("last_semester", "2017-01")= "Hiver 2017"
+			+Option("last_semester", "2017-05")= "Été 2017"
+			+Option("last_semester", "2017-09")= "Automne 2017"
+			+Option("last_semester", "2018-01")= "Hiver 2018"
+			+Option("last_semester", "2018-05")= "Été 2018"
+			+Option("last_semester", "2018-09")= "Automne 2018"
+			+Option("last_semester", "2019-01")= "Hiver 2019"
+			+Option("last_semester", "2019-05")= "Été 2019"
+			+Option("last_semester", "2019-09")= "Automne 2019"
+			+Option("last_semester", "2020-01")= "Hiver 2020"
+		+RequiredMessage
+	
+	label(class=self.utils.getLabelClass(self, "tshirt_size"))
+		h6
+			= "Taille de chandail "
+			span.label-required= "(requis)"
+		p.
+			Utilisé pour commander les chandails officiaux et les costumes.
+		select(name="tshirt_size", aria-required="true", required="")
+			+Option("tshirt_size", "")
+			+Option("tshirt_size", "XS")= "Très petit"
+			+Option("tshirt_size", "S")= "Petit"
+			+Option("tshirt_size", "M")= "Moyen"
+			+Option("tshirt_size", "L")= "Large"
+			+Option("tshirt_size", "XL")= "Extra large"
+			+Option("tshirt_size", "XXL")= "Extra extra large"
+		+RequiredMessage
+	
+	fieldset
+		legend
+			h6= "Allergies alimentaires ou intolérances sévères"
+		p.
+			Indiquez ici les aliments que vous ne pouvez pas consommer pour des raisons médicales.
+		ul.checkgroup
+			li: +CheckBoxField("food_allergies", "peanuts")
+				| Arachides
+			li: +CheckBoxField("food_allergies", "wheat")
+				| Blé
+			li: +CheckBoxField("food_allergies", "lactose")
+				| Lactose
+			li: +CheckBoxField("food_allergies", "milk")
+				| Lait
+			li: +CheckBoxField("food_allergies", "eggs")
+				| Œufs
+			li: +CheckBoxField("food_allergies", "fishes")
+				| Poissons
+			li: +CheckBoxField("food_allergies", "soy")
+				| Soya
+			li: +CheckBoxField("food_allergies", "seafood")
+				| Fruits de mer
+			li: +OtherCheckBoxField("food_allergies", "other", "Autre allergie ou intolérance sévère")
+				| Autre : 
+	
+	fieldset
+		legend
+			h6= "Régime alimentaire"
+		p.
+			Indiquez ici, s’il y a lieu, le régime que vous suivez de façon stricte.
+		ul(role="radiogroup")
+			li: +OptionButtonField("diet", "")
+				| Aucun ou non stricte
+			li: +OptionButtonField("diet", "kashrut")
+				| Cacheroute
+			li: +OptionButtonField("diet", "halal")
+				| Halal
+			li: +OptionButtonField("diet", "vegetarianism")
+				| Végétarisme
+			li: +OptionButtonField("diet", "veganism")
+				| Végétalisme
+			li: +OtherOptionButtonField("diet", "other", "Autre régime alimentaire")
+				| Autre : 
