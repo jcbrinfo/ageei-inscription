@@ -30,7 +30,7 @@ mixin InterestField(name, odd)
 		+RequiredMessage
 
 mixin SkillField(name, odd)
-	- name = "skills_" + name
+	- name = "skill_" + name
 
 	label(class="form-field-row", class=self.utils.getLabelClass(self, name), class=odd?"row-odd":null)
 		div.form-field-row-label
@@ -150,15 +150,15 @@ block formContent
 			a(href="http://en.wikipedia.org/wiki/Common_European_Framework_of_Reference_for_Languages#Common_reference_levels")
 				|l’article du Wikipédia anglophone sur les niveaux de référence
 			|.
-		label(class="form-field-row", class=self.utils.getLabelClass(self, "lang_skills_en"), class="row-odd")
+		label(class="form-field-row", class=self.utils.getLabelClass(self, "lang_skill_en"), class="row-odd")
 			div.form-field-row-label
 				|Anglais :
-			select(name="lang_skills_en", aria-required="true", required="")
-				+Option("lang_skills_en", "")
-				+Option("lang_skills_en", "beginer")= "Débutant"
-				+Option("lang_skills_en", "elementary")= "Élémentaire"
-				+Option("lang_skills_en", "intermediate")= "Intermédiaire"
-				+Option("lang_skills_en", "intermediate-elevated")= "Intermédiaire élevé"
-				+Option("lang_skills_en", "advanced")= "Avancé"
-				+Option("lang_skills_en", "master")= "Maîtrise"
+			select(name="lang_skill_en", aria-required="true", required="")
+				+Option("lang_skill_en", "")
+				+Option("lang_skill_en", "beginer")= "Débutant"
+				+Option("lang_skill_en", "elementary")= "Élémentaire"
+				+Option("lang_skill_en", "intermediate")= "Intermédiaire"
+				+Option("lang_skill_en", "intermediate-elevated")= "Intermédiaire élevé"
+				+Option("lang_skill_en", "advanced")= "Avancé"
+				+Option("lang_skill_en", "master")= "Maîtrise"
 			+RequiredMessage

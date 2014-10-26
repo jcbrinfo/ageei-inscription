@@ -10,7 +10,7 @@ var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
 var bodyParser = require('body-parser');
-var db = require("./model/db.js");
+var db = require("./lib/model/db.js");
 
 // Configuration
 var app = express();

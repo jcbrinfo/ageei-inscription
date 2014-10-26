@@ -57,17 +57,17 @@ create table Availibility (
 -- Intérêts
 create table Interest (
 	_id Integer primary key,	-- = rowid
-	Inscription_id Integer not null references Inscription(id) on delete cascade on update cascade,
+	Inscription_id	Integer not null references Inscription(id) on delete cascade on update cascade,
 
 	-- Intérêt
-	key			Text	not null,
+	key				Text	not null,
 	
-	-- Priorité (nombre négatif)
-	priority	Integer	not null
+	-- Rang (nombre négatif)
+	interest_rank	Integer	not null
 );
 
 -- Compétence (général)
-create table Skills (
+create table Skill (
 	_id Integer primary key,	-- = rowid
 	Inscription_id Integer not null references Inscription(id) on delete cascade on update cascade,
 
@@ -91,7 +91,7 @@ create table Practice (
 );
 
 -- Comptétence liguistique
-create table Language_Skills (
+create table Language_Skill (
 	_id Integer primary key,	-- = rowid
 	Inscription_id Integer not null references Inscription(id) on delete cascade on update cascade,
 
@@ -118,15 +118,15 @@ create table Contest_Participation (
 	available_for_checkin	Integer	not null
 );
 
--- Idée
+-- Idées
 create table Contest_Ideas (
 	_id Integer primary key,	-- = rowid
 
 	-- Compétition
 	contest			Text	not null,
 
-	-- Type d'idée
-	type			Text,
+	-- Catégorie d'idées
+	category		Text,
 
 	-- Contenu
 	content			Text

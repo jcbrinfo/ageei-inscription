@@ -16,7 +16,7 @@ exports.post = function(req, res) {
 	var model = new Model();
 
 	if (".from-page" in req.body) {
-		model.page = parseInt(req.body[".from-page"])
+		model.page = parseInt(req.body[".from-page"], 16)
 		if (isNaN(model.page) || model.page < 0) {
 			model.page = 0;
 		} else if (model.page >= model.numberOfPages) {
@@ -24,7 +24,7 @@ exports.post = function(req, res) {
 		}
 	}
 	model.fromPage = model.page;
-	model.set_all(req.body);
+	model.setAll(req.body);
 	if (".button" in req.body && req.body[".button"] === "back") {
 		if (model.page > 0) {
 			--model.page;
