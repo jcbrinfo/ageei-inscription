@@ -276,7 +276,7 @@ app.use(function(err, req, res, next) {
 });
 
 module.exports.init = function (setApp) {
-	db.init(function () {
-		setApp(app);
+	db.init(function (err) {
+		setApp(err, app);
 	});
 };
